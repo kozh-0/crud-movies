@@ -1,15 +1,32 @@
 import axios from "axios";
-import { useState } from "react";
-import { Itable, URL } from "../App";
+import { useEffect, useState } from "react";
+const URL = 'http://localhost:3001/reviews';
 
+interface Itable {
+    id: number;
+    movieName: string;
+    movieReview: string;
+}
 
-export default function Reviews({ data, setData }: { data: Itable[], setData: any }) {
+export default function Reviews() {
+    const [movieName, setMovieName] = useState('');
+    const [movieReview, setMovieReview] = useState('');
     const [newReview, setNewReview] = useState('');
+    const [data, setData] = useState<Itable[]>([]);
+
+    const submitReview = () => {
+        if (!movieName || !movieReview) return;
+        axios.post(`${URL}/insert`, { movieName, movieReview });
+        setData([...data, { movieName, movieReview, id: data[data.length - 1].id + 1 }]);
+        setMovieName('');
+        setMovieReview('');
+    };
 
     const deleteReview = (movie: string) => {
         axios.delete(`${URL}/delete/${movie}`);
         setData(data.filter(el => el.movieName !== movie));
     };
+
     const updateReview = (e: any, movie: string) => {
         axios.put(`${URL}/update`, {
             movieName: movie,
@@ -18,9 +35,31 @@ export default function Reviews({ data, setData }: { data: Itable[], setData: an
         setData(data.map(el => el.movieName === movie ? { ...el, movieReview: newReview } : el));
         e.target.value = '';
     };
-    return (
+
+    useEffect(() => {
+        axios(`${URL}/get`).then(res => setData(res.data));
+    }, []);
+    console.log(data);
+
+    return <>
+        <h2>Let's see what you have to say...</h2>
+        <div className="input_div">
+            <input
+                autoFocus
+                placeholder="Movie name"
+                value={movieName}
+                onChange={(e) => setMovieName(e.target.value)}
+            />
+            <input
+                placeholder="Your review"
+                value={movieReview}
+                onChange={(e) => setMovieReview(e.target.value)}
+            />
+            <button onClick={submitReview}>Submit</button>
+        </div>
+
         <div className="reviews">
-            {data.map((el, idx) => (
+            {data.length ? data.map((el, idx) => (
                 <div key={el.id} className="reviews_item">
                     <h3>{idx + 1}. {el.movieName}</h3>
                     <p>{el.movieReview}</p>
@@ -32,7 +71,7 @@ export default function Reviews({ data, setData }: { data: Itable[], setData: an
                         onKeyDown={(e) => { if (e.key === 'Enter') updateReview(e, el.movieName) }}
                     />
                 </div>
-            ))}
+            )) : <h2>Loading...</h2>}
         </div>
-    )
+    </>;
 }
