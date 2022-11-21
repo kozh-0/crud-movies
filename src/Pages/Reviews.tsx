@@ -37,7 +37,7 @@ export default function Reviews() {
     };
 
     useEffect(() => {
-        axios(`${URL}/get`).then(({data}) => setData(data.sort((a: Itable,b :Itable) => a.movieName < b.movieName ? -1 : 1)));
+        axios(`${URL}/get`).then(({ data }) => setData(data.sort((a: Itable, b: Itable) => a.movieName < b.movieName ? -1 : 1)));
     }, []);
 
     return <>
@@ -70,7 +70,9 @@ export default function Reviews() {
                         onKeyDown={(e) => { if (e.key === 'Enter') updateReview(e, el.movieName) }}
                     />
                 </div>
-            )) : <h2>Loading...</h2>}
+            )) : <div style={{textAlign:'center'}}>
+                <img width={60} src='./rings.svg' alt='svg' />
+            </div>}
         </div>
     </>;
 }
