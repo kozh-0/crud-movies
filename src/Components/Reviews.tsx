@@ -50,7 +50,7 @@ export default function Reviews() {
                 value={movieName}
                 onChange={(e) => setMovieName(e.target.value)}
             />
-            <input
+            <textarea
                 placeholder="Your review"
                 value={movieReview}
                 onChange={(e) => setMovieReview(e.target.value)}

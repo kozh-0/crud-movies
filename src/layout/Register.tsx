@@ -10,14 +10,15 @@ export default function Register() {
         if (!username || !email || !password) return;
         axios.post('http://localhost:3001/register', {
             username: username.trim(),
-            email: email.trim(), 
+            email: email.trim(),
             password: password.trim()
         })
-        .then(res => console.log(res));
+            .then(res => console.log(res));
         setUsername(''); setEmail(''); setPassword('');
     }
 
-    return (
+    return <>
+        <h2>Registration</h2>
         <div className="input_div">
             <input
                 autoFocus
@@ -40,5 +41,5 @@ export default function Register() {
             />
             <button onClick={register}>Register</button>
         </div>
-    )
+    </>;
 }

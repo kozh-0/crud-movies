@@ -12,15 +12,18 @@ export default function Login() {
             email: email.trim(),
             password: password.trim()
         })
-        .then(({data}) => {
-            console.log(data);
-            
-            Array.isArray(data) ? setLoginStatus('Authed') : setLoginStatus('НЕТ')
-        });
-        setEmail(''); setPassword('');
+            .then(({ data }) => {
+                if (Array.isArray(data)) {
+                    setLoginStatus('Authed');
+                    setEmail(''); setPassword('');
+                } else {
+                    setLoginStatus(data.message);
+                };
+            });
     }
 
     return <>
+        <h2>Login</h2>
         <div className="input_div">
             <input
                 autoFocus
@@ -37,6 +40,6 @@ export default function Login() {
             />
             <button onClick={auth}>Login</button>
         </div>
-        <h1>{loginStatus}</h1>
+        <h2 style={{ textAlign: 'center' }}>{loginStatus}</h2>
     </>;
 }

@@ -7,11 +7,9 @@ import Register from "./layout/Register";
 
 export default function App() {
 
-
 	return <>
 		<Header />
 		<div className="App">
-
 			<Routes>
 				<Route path="/" element={<Reviews />} />
 				<Route path="/login" element={<Login />} />
