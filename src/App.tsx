@@ -11,9 +11,9 @@ export default function App() {
 		<Header />
 		<div className="App">
 			<Routes>
-				<Route path="/" element={<Reviews />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
+				<Route path="/crud-movies" element={<Reviews />} />
+				<Route path="/crud-movies/login" element={<Login />} />
+				<Route path="/crud-movies/register" element={<Register />} />
 			</Routes>
 		</div>
 		<Footer />

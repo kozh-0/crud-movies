@@ -1,7 +1,9 @@
 {
-  "name": "client",
+  "name": "movie_reviews",
+  "author": "Dmitry Kozhevikov",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kozh-0.github.io/crud-movies",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -22,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "sass": "^1.56.1"
   }
 }
