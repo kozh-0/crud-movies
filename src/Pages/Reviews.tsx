@@ -39,7 +39,6 @@ export default function Reviews() {
     useEffect(() => {
         axios(`${URL}/get`).then(res => setData(res.data));
     }, []);
-    console.log(data);
 
     return <>
         <h2>Let's see what you have to say...</h2>
@@ -64,7 +63,7 @@ export default function Reviews() {
                     <h3>{idx + 1}. {el.movieName}</h3>
                     <p>{el.movieReview}</p>
 
-                    <button onClick={() => deleteReview(el.movieName)}>X</button>
+                    <button onClick={() => deleteReview(el.movieName)}>✘</button>
                     <input
                         placeholder="Update review"
                         onChange={(e) => setNewReview(e.target.value)}

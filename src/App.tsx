@@ -1,9 +1,9 @@
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
-import Reviews from "./Components/Reviews";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+import Reviews from "./Pages/Reviews";
 import { Routes, Route } from "react-router-dom";
-import Login from "./layout/Login";
-import Register from "./layout/Register";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 export default function App() {
 

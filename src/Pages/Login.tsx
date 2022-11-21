@@ -1,33 +1,32 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState } from "react"
 
-export default function Register() {
-    const [username, setUsername] = useState('');
+export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loginStatus, setLoginStatus] = useState('');
 
-    const register = () => {
-        if (!username || !email || !password) return;
-        axios.post('http://localhost:3001/register', {
-            username: username.trim(),
+    const auth = () => {
+        if (!email || !password) return;
+        axios.post('http://localhost:3001/login', {
             email: email.trim(),
             password: password.trim()
         })
-            .then(res => console.log(res));
-        setUsername(''); setEmail(''); setPassword('');
+            .then(({ data }) => {
+                if (Array.isArray(data)) {
+                    setLoginStatus('Authed');
+                    setEmail(''); setPassword('');
+                } else {
+                    setLoginStatus(data.message);
+                };
+            });
     }
 
     return <>
-        <h2>Registration</h2>
+        <h2>Login</h2>
         <div className="input_div">
             <input
                 autoFocus
-                type="text"
-                placeholder="Name"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
                 type="email"
                 placeholder="E-mail"
                 value={email}
@@ -39,7 +38,8 @@ export default function Register() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={register}>Register</button>
+            <button onClick={auth}>Login</button>
         </div>
+        {loginStatus && <h2 style={{ textAlign: 'center' }}>{loginStatus}</h2>}
     </>;
 }
