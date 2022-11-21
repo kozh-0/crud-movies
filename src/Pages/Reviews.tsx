@@ -50,7 +50,7 @@ export default function Reviews() {
                 onChange={(e) => setMovieName(e.target.value)}
             />
             <textarea
-                placeholder="Your review"
+                placeholder="Your review here"
                 value={movieReview}
                 onChange={(e) => setMovieReview(e.target.value)}
             />
@@ -61,7 +61,9 @@ export default function Reviews() {
             {data.length ? data.map((el, idx) => (
                 <div key={el.id} className="reviews_item">
                     <h3>{idx + 1}. {el.movieName}</h3>
-                    <p>{el.movieReview}</p>
+                    <p>
+                        <span>👨‍💻UserName</span>: {el.movieReview}
+                    </p>
 
                     <button onClick={() => deleteReview(el.movieName)}>✘</button>
                     <input
