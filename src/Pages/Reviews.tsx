@@ -37,7 +37,7 @@ export default function Reviews() {
     };
 
     useEffect(() => {
-        axios(`${URL}/get`).then(res => setData(res.data));
+        axios(`${URL}/get`).then(({data}) => setData(data.sort((a: Itable,b :Itable) => a.movieName < b.movieName ? -1 : 1)));
     }, []);
 
     return <>
