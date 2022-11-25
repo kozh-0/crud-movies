@@ -24,22 +24,24 @@ export default function Login() {
 
     return <>
         <h2>Login</h2>
-        <div className="input_div">
+        <form className="input_div" onSubmit={(e) => e.preventDefault()}>
             <input
                 autoFocus
                 type="email"
                 placeholder="E-mail"
                 value={email}
+                autoComplete="username"
                 onChange={(e) => setEmail(e.target.value)}
             />
             <input
                 type="password"
                 placeholder="Password"
                 value={password}
+                autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
             />
             <button onClick={auth}>Login</button>
-        </div>
+        </form>
         {loginStatus && <h2 style={{ textAlign: 'center' }}>{loginStatus}</h2>}
     </>;
 }
