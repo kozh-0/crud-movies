@@ -8,14 +8,20 @@ To get started install both branches in separate folders.
 # There are 2 branches in this repo:
 ## 1. server (MySQL DB, Node.js/Express, TS)
 To get all dependencies type ```npm i``` in terminal. For simplicity there are one main index.ts file that conveniently holds basic ```get, post, put, delete``` HTTP methods to address your MySQL DB via string SQL commands. 
-Express, mysql, cors, bodyParser libraries provides the rest, but I really should transfer to Prisma later when i'll learn it. When you're done writing backend type ```tsc``` command to compile TS to JS, Your code in dist folder now.
+Express, mysql, cors, bodyParser libraries provides the rest, but I really should transfer to Prisma later when i'll learn it. 
+
+When you're done writing backend type ```tsc``` command to compile TS to JS, Your code will be in dist folder now.
+ACHTUNG!!!
+js import routs must be renamed in order to server to work. e.g. import { db } from "..`/index.js`" OR './routes/reviews`.js`';
 
 To run the server in package.json I added these scripts:
 | shortcut | command |
 | ------ | ------ |
-| `npm start` | `node ./dist/index.js` |
-| `npm run dev`| `nodemon ./dist/index.js` |
+| npm start | node ./dist/index.js |
+| npm run dev| nodemon ./dist/index.js |
 ||(so you won't need to restart the server all the time)|
+
+
 
 
 ## 2. client (React/TS, scss)

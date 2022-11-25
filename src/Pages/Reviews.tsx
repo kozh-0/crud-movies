@@ -40,9 +40,9 @@ export default function Reviews() {
         axios(`${URL}/get`).then(({ data }) => setData(data.sort((a: Itable, b: Itable) => a.movieName < b.movieName ? -1 : 1)));
     }, []);
 
-    return <>
-        <h2>Let's see what you have to say...</h2>
+    return <main>
         <div className="input_div">
+            <h4>Let's see what you have to say...</h4>
             <input
                 autoFocus
                 placeholder="Movie name"
@@ -72,9 +72,9 @@ export default function Reviews() {
                         onKeyDown={(e) => { if (e.key === 'Enter') updateReview(e, el.movieName) }}
                     />
                 </div>
-            )) : <div style={{textAlign:'center'}}>
+            )) : <div style={{ textAlign: 'center' }}>
                 <img width={60} src='./rings.svg' alt='svg' />
             </div>}
         </div>
-    </>;
+    </main>;
 }
