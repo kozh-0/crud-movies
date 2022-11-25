@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import reviewsRouter from './routes/reviews.js';
 import usersRouter from './routes/user.js';
-
+import cookieParser from 'cookie-parser';
 
 const app = express();
 export const db = mysql.createPool({
@@ -18,6 +18,7 @@ const port = 3001;
 app.use(cors());
 // авто парс json
 app.use(express.json());
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
