@@ -18,7 +18,7 @@ export default function Users() {
     return (
         <div className="users">
             {users.map((el, idx) => (
-                <div className="users_item">
+                <div key={el.password} className="users_item">
                     <p>{el.username}</p>
                     <p>{el.email}</p>
                     <p>{el.password}</p>

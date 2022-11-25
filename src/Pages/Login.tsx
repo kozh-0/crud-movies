@@ -8,18 +8,14 @@ export default function Login() {
 
     const auth = () => {
         if (!email || !password) return;
-        axios.post('http://localhost:3001/login', {
+        axios.post('http://localhost:3001/users/login', {
             email: email.trim(),
             password: password.trim()
         })
-            .then(({ data }) => {
-                if (Array.isArray(data)) {
-                    setLoginStatus('Authed');
-                    setEmail(''); setPassword('');
-                } else {
-                    setLoginStatus(data.message);
-                };
-            });
+        .then(({data}) => {
+            setLoginStatus(data.message);
+        })
+        .finally(() => setTimeout(() => setLoginStatus(''), 2000));
     }
 
     return <>
@@ -42,6 +38,6 @@ export default function Login() {
             />
             <button onClick={auth}>Login</button>
         </form>
-        {loginStatus && <h2 style={{ textAlign: 'center' }}>{loginStatus}</h2>}
+        {loginStatus && <h2 style={loginStatus === 'Authed!' ? { color: '#00ff00' } : { color: 'red' }}>{loginStatus}</h2>}
     </>;
 }

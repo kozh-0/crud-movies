@@ -8,24 +8,25 @@ export default function Register() {
     const [regStatus, setRegStatus] = useState('');
 
     const register = () => {
-        if (!username || !/\S+@\S+\.\S+/.test(email) || !password) {
+        if (username.length > 3 || !/\S+@\S+\.\S+/.test(email) || password.length > 5) {
             setRegStatus('Incorrect form!');
             return setTimeout(() => {
-                 setRegStatus('');
-            }, 3000);
-        } 
-        axios.post('http://localhost:3001/register', {
+                setRegStatus('');
+            }, 2000);
+        }
+        axios.post('http://localhost:3001/users/register', {
             username: username.trim(),
             email: email.trim(),
             password: password.trim()
         })
-        .then(({data}) => {
-            setRegStatus(data);
-            setTimeout(() => {
-                setRegStatus('');
-            }, 3000);
-        });
-        setUsername(''); setEmail(''); setPassword('');
+            .then(({ data }) => {
+                setRegStatus(data);
+            }).finally(() => {
+                setTimeout(() => {
+                    setRegStatus('');
+                }, 2500);
+                setUsername(''); setEmail(''); setPassword('');
+            });
     }
 
     return <>
@@ -54,10 +55,9 @@ export default function Register() {
             />
             <button onClick={register}>Register</button>
         </form>
-        {regStatus === "USER REGISTERED" ? (
-            <h3 style={{ color: '#00ff00', textAlign: 'center' }}>{regStatus}</h3>
-        ) : (
-            <h3 style={{ color: 'red', textAlign: 'center' }}>{regStatus}</h3>
-        )}
+        {/* ХУЙНЯ КАКАЯ-ТО УПРОСТИ */}
+        {/* {regStatus === "USER REGISTERED" ? ( */}
+        {regStatus && <h3 style={regStatus === "USER REGISTERED" ? { color: '#00ff00' } 
+        : { color: "red"}}>{regStatus}</h3>}
     </>;
 }
