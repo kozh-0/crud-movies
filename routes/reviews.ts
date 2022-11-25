@@ -1,9 +1,9 @@
 import express from "express";
-import { db } from "..";
-
+import { db } from "../index.js";
 const reviewsRouter = express.Router();
-const table = 'movie_reviews';
 
+
+const table = 'movie_reviews';
 
 reviewsRouter.get('/get', (req, res) => {
     const sqlGet = `SELECT * FROM ${table}`;
