@@ -17,6 +17,15 @@ reviewsRouter.post('/insert', (req, res) => {
     db.query(sqlInsert, [movieName, movieReview], (err, result) => console.log(result));
 });
 
+reviewsRouter.put('/update', (req, res) => {
+    const { movieName, movieReview } = req.body;
+    const sqlUpdate = `UPDATE ${table} SET movieReview = ? WHERE movieName = ?`;
+    
+    db.query(sqlUpdate, [movieReview, movieName], (err, res) => {
+        if (err) console.error(err);
+    });
+});
+
 reviewsRouter.delete('/delete/:movieName', (req, res) => {
     const { movieName } = req.params;
     // ? мы ставим, чтобы в db.query передать этот параметр
@@ -25,15 +34,6 @@ reviewsRouter.delete('/delete/:movieName', (req, res) => {
         if (err) console.error(err);
     })
     res.send('delete')
-});
-
-reviewsRouter.put('/update', (req, res) => {
-    const { movieName, movieReview } = req.body;
-    const sqlUpdate = `UPDATE ${table} SET movieReview = ? WHERE movieName = ?`;
-
-    db.query(sqlUpdate, [movieReview, movieName], (err, res) => {
-        if (err) console.error(err);
-    });
 });
 
 export default reviewsRouter;

@@ -2,7 +2,7 @@ import express from 'express';
 import mysql from 'mysql';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-
+import bcrypt from 'bcrypt';
 import reviewsRouter from './routes/reviews';
 
 
@@ -29,9 +29,12 @@ app.use('/reviews', reviewsRouter);
     const table = 'users';
     app.post('/register', (req, res) => {
         const { username, email, password } = req.body;
-
-        const sqlReg = `INSERT INTO ${table} (username, email, password) VALUES (?,?,?)`;
-        db.query(sqlReg, [username, email, password], (err, result) => console.log(err));
+        bcrypt.hash(password, 5).then(hash => {
+            console.log(hash);
+            
+            const sqlReg = `INSERT INTO ${table} (username, email, password) VALUESz (?,?,?)`;
+            db.query(sqlReg, [username, email, hash], (err, result) => console.log(err));
+        }).then(() => res.json('USER REGISTERED'))
     });
 
     app.post('/login', (req, res) => {
@@ -45,6 +48,9 @@ app.use('/reviews', reviewsRouter);
 
             result.length > 0 ? res.send(result) : res.send({ message: 'There is no such user!' });
         });
+    });
+    app.get('/users', (req, res) => {
+        db.query('SELECT * FROM `crud server`.users', (err, result) => res.json(result))
     });
 }
 
