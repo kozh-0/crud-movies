@@ -35,7 +35,7 @@ usersRouter.post('/login', (req, res) => {
                     maxAge: 60*60*24*30*1000,
                     httpOnly: true
                 })
-                res.json({message: 'Authed!'})
+                res.json({ message: 'Authed!', accessToken });
             } else {
                 res.json({message: 'Wrong password'})
             }
