@@ -11,8 +11,6 @@ To get all dependencies type ```npm i``` in terminal. For simplicity there are o
 Express, mysql, cors, bodyParser libraries provides the rest, but I really should transfer to Prisma later when i'll learn it. 
 
 When you're done writing backend type ```tsc``` command to compile TS to JS, Your code will be in dist folder now.
-ACHTUNG!!!
-js import routs must be renamed in order to server to work. e.g. import { db } from "..`/index.js`" OR './routes/reviews`.js`';
 
 To run the server in package.json I added these scripts:
 | shortcut | command |

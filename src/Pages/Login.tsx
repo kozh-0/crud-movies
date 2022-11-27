@@ -1,21 +1,28 @@
 import axios from "axios";
-import { useState } from "react"
+import Cookies from "js-cookie";
+import { useState } from "react";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginStatus, setLoginStatus] = useState('');
+    
+    
 
-    const auth = () => {
+    const signIn = () => {
         if (!email || !password) return;
         axios.post('http://localhost:3001/users/login', {
             email: email.trim(),
             password: password.trim()
         })
-        .then(({data}) => {
-            setLoginStatus(data.message);
-        })
-        .finally(() => setTimeout(() => setLoginStatus(''), 2000));
+            .then(({ data }) => {
+                console.log(data);
+                setLoginStatus(data.message);
+                if (!data.accessToken) return;
+                Cookies.set('movieToken', data.accessToken, { expires: 1 })
+                window.location.href = 'http://localhost:3000/crud-movies';
+            })
+            .finally(() => setTimeout(() => setLoginStatus(''), 2000));
     }
 
     return <>
@@ -36,7 +43,7 @@ export default function Login() {
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={auth}>Login</button>
+            <button onClick={signIn}>Login</button>
         </form>
         {loginStatus && <h2 style={loginStatus === 'Authed!' ? { color: '#00ff00' } : { color: 'red' }}>{loginStatus}</h2>}
     </>;
